@@ -4,9 +4,9 @@ import { ControlPanel } from "@/components/ControlPanel";
 
 const Index = () => {
   const [rule, setRule] = useState(30);
-  const [cellSize, setCellSize] = useState(4);
+  const [cellSize, setCellSize] = useState(8);
   const [delay, setDelay] = useState(50);
-  const [maxGenerations, setMaxGenerations] = useState(200);
+  const [maxGenerations, setMaxGenerations] = useState(100);
   const [isPlaying, setIsPlaying] = useState(false);
   const [resetKey, setResetKey] = useState(0);
 

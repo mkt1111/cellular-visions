@@ -79,9 +79,9 @@ export const ControlPanel = ({
           <Slider
             value={[cellSize]}
             onValueChange={([value]) => onCellSizeChange(value)}
-            min={2}
+            min={4}
             max={20}
-            step={1}
+            step={2}
             className="w-full"
           />
         </div>

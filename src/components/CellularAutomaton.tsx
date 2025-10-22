@@ -52,6 +52,7 @@ export const CellularAutomaton = ({
     initialGrid.push(firstRow);
     setGrid(initialGrid);
     setGeneration(0);
+    lastUpdateRef.current = 0;
   }, [width, rule]);
 
   // Animation loop
@@ -104,19 +105,42 @@ export const CellularAutomaton = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Clear canvas
-    ctx.fillStyle = "hsl(var(--background))";
+    // Get computed colors from CSS variables on root element
+    const rootStyle = getComputedStyle(document.documentElement);
+    const bgColor = rootStyle.getPropertyValue('--background').trim();
+    const cellColor = rootStyle.getPropertyValue('--cell-active').trim();
+    const glowColor = rootStyle.getPropertyValue('--cell-glow').trim();
+
+    // Convert HSL values to full HSL string or use fallback
+    const backgroundColor = bgColor ? `hsl(${bgColor})` : '#0a0f1e';
+    const cellActiveColor = cellColor ? `hsl(${cellColor})` : '#f0f4ff';
+    const cellGlowColor = glowColor ? `hsl(${glowColor})` : '#3b82f6';
+
+    // Clear canvas with dark background
+    ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Only draw if we have grid data
+    if (grid.length === 0) return;
 
     // Draw grid
     grid.forEach((row, y) => {
       row.forEach((cell, x) => {
         if (cell === 1) {
-          // Draw cell with glow effect
-          ctx.shadowBlur = cellSize / 2;
-          ctx.shadowColor = "hsl(var(--cell-glow))";
-          ctx.fillStyle = "hsl(var(--cell-active))";
-          ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+          // Draw cell with enhanced glow effect
+          const glowSize = Math.max(cellSize * 1.5, 8);
+          ctx.shadowBlur = glowSize;
+          ctx.shadowColor = cellGlowColor;
+          ctx.fillStyle = cellActiveColor;
+          
+          // Draw slightly larger cell for visibility
+          const padding = 0.5;
+          ctx.fillRect(
+            x * cellSize + padding,
+            y * cellSize + padding,
+            cellSize - padding * 2,
+            cellSize - padding * 2
+          );
           ctx.shadowBlur = 0;
         }
       });
