@@ -9,6 +9,8 @@ const Index = () => {
   const [maxGenerations, setMaxGenerations] = useState(100);
   const [isPlaying, setIsPlaying] = useState(false);
   const [resetKey, setResetKey] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [colorMode, setColorMode] = useState("white");
 
   const handleReset = () => {
     setIsPlaying(false);
@@ -47,6 +49,10 @@ const Index = () => {
               isPlaying={isPlaying}
               onPlayPause={() => setIsPlaying(!isPlaying)}
               onReset={handleReset}
+              zoom={zoom}
+              onZoomChange={setZoom}
+              colorMode={colorMode}
+              onColorModeChange={setColorMode}
             />
           </div>
 
@@ -59,6 +65,8 @@ const Index = () => {
               maxGenerations={maxGenerations}
               isPlaying={isPlaying}
               onReset={handleReset}
+              zoom={zoom}
+              colorMode={colorMode}
             />
           </div>
         </div>

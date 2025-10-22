@@ -3,6 +3,13 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Play, Pause, RotateCcw } from "lucide-react";
 
 interface ControlPanelProps {
@@ -17,6 +24,10 @@ interface ControlPanelProps {
   isPlaying: boolean;
   onPlayPause: () => void;
   onReset: () => void;
+  zoom: number;
+  onZoomChange: (zoom: number) => void;
+  colorMode: string;
+  onColorModeChange: (mode: string) => void;
 }
 
 export const ControlPanel = ({
@@ -31,6 +42,10 @@ export const ControlPanel = ({
   isPlaying,
   onPlayPause,
   onReset,
+  zoom,
+  onZoomChange,
+  colorMode,
+  onColorModeChange,
 }: ControlPanelProps) => {
   return (
     <Card className="p-6 space-y-6 bg-card border-border">
@@ -120,6 +135,43 @@ export const ControlPanel = ({
             step={10}
             className="w-full"
           />
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="zoom" className="text-foreground">
+              Zoom
+            </Label>
+            <span className="text-sm text-muted-foreground">{zoom}x</span>
+          </div>
+          <Slider
+            value={[zoom]}
+            onValueChange={([value]) => onZoomChange(value)}
+            min={0.5}
+            max={3}
+            step={0.1}
+            className="w-full"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="colorMode" className="text-foreground">
+            Color Mode
+          </Label>
+          <Select value={colorMode} onValueChange={onColorModeChange}>
+            <SelectTrigger className="w-full bg-secondary border-border text-foreground">
+              <SelectValue placeholder="Select color mode" />
+            </SelectTrigger>
+            <SelectContent className="bg-popover border-border z-50">
+              <SelectItem value="white">Classic White</SelectItem>
+              <SelectItem value="rainbow">Rainbow Gradient</SelectItem>
+              <SelectItem value="blue-gradient">Blue Gradient</SelectItem>
+              <SelectItem value="green-gradient">Green Gradient</SelectItem>
+              <SelectItem value="purple-gradient">Purple Gradient</SelectItem>
+              <SelectItem value="fire">Fire (Red-Orange-Yellow)</SelectItem>
+              <SelectItem value="ocean">Ocean (Cyan-Blue)</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
