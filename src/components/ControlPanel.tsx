@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Play, Pause, RotateCcw } from "lucide-react";
+import { RuleVisualization } from "./RuleVisualization";
 
 interface ControlPanelProps {
   rule: number;
@@ -83,6 +84,8 @@ export const ControlPanel = ({
             className="w-full"
           />
         </div>
+
+        <RuleVisualization rule={rule} />
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">

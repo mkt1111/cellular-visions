@@ -206,13 +206,15 @@ export const CellularAutomaton = ({
   return (
     <Card className="p-4 bg-card border-border">
       <div className="overflow-x-auto overflow-y-hidden">
-        <canvas
-          ref={canvasRef}
-          width={width * cellSize}
-          height={height * cellSize}
-          style={{ transform: `scale(${zoom})`, transformOrigin: 'top left' }}
-          className="border border-grid-line rounded"
-        />
+        <div style={{ width: `${width * cellSize * zoom}px`, height: `${height * cellSize * zoom}px` }}>
+          <canvas
+            ref={canvasRef}
+            width={width * cellSize}
+            height={height * cellSize}
+            style={{ transform: `scale(${zoom})`, transformOrigin: 'top left' }}
+            className="border border-grid-line rounded"
+          />
+        </div>
       </div>
     </Card>
   );
