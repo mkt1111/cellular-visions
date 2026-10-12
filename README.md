@@ -32,3 +32,7 @@ npm run dev
 ## How it was built
 
 Built with Lovable (AI app builder) under Matthew Thornhill's direction as a learning/exploration project.
+
+## Known issues
+
+- The UI has layout and usability issues that still need to be resolved.
